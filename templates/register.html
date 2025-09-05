@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Sign up · Flask To-Do{% endblock %}
+{% block content %}
+<section class="auth card">
+  <div class="card-header">
+    <h1 class="card-title">Create your account</h1>
+    <p class="card-subtitle">It takes less than a minute.</p>
+  </div>
+  <form class="form" method="POST">
+    <label class="field">
+      <span class="label">Username</span>
+      <input class="input" type="text" name="username" placeholder="yourname" required />
+    </label>
+    <label class="field">
+      <span class="label">Password</span>
+      <input class="input" type="password" name="password" placeholder="Choose a strong password" required />
+    </label>
+    <button class="btn btn-primary w-full" type="submit">Sign up</button>
+  </form>
+  <p class="muted center m-top">Already have an account?
+    <a class="link" href="{{ url_for('login') }}">Log in</a>
+  </p>
+</section>
+{% endblock %}
