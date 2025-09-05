@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}My Tasks · Flask To-Do{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="card-header">
+    <h1 class="card-title">My To-Do List</h1>
+    <p class="card-subtitle">Add tasks, mark done, and stay organized.</p>
+  </div>
+
+  <form class="task-form" action="{{ url_for('add') }}" method="POST">
+    <input class="input" type="text" name="content" placeholder="What do you need to do?" required />
+    <button class="btn btn-primary" type="submit">Add Task</button>
+  </form>
+
+  {% if tasks %}
+    <ul class="task-list">
+      {% for task in tasks %}
+        <li class="task-item {% if task.complete %}is-complete{% endif %}">
+          <div class="task-main">
+            <span class="checkbox" aria-hidden="true"></span>
+            <span class="task-text">{{ task.content }}</span>
+          </div>
+          <div class="task-actions">
+            <a class="btn btn-small btn-ghost" href="{{ url_for('toggle', task_id=task.id) }}">
+              {% if task.complete %}Mark Undone{% else %}Mark Done{% endif %}
+            </a>
+            <a class="btn btn-small btn-danger" href="{{ url_for('delete', task_id=task.id) }}">Delete</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="empty">
+      <div class="empty-illustration">🗒️</div>
+      <p class="empty-text">No tasks yet. Add your first task above.</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
